@@ -42,14 +42,40 @@ public class CardUtils {
     public static void printColoredCard(String cardName, int suit) {
         String colorCode;
         if (suit == 1 || suit == 2) {
-            colorCode = "\u001B[31m"; // Red color for Diamonds and Hearts
+            colorCode = "\u001B[31m";
         } else {
-            colorCode = "\u001B[35m"; // Purple color for Spades and Clubs
+            colorCode = "\u001B[35m";
         }
 
         String resetCode = "\u001B[0m";
 
         System.out.println(colorCode + cardName + resetCode);
+    }
+
+    public static int[][][] pickCardByIndex(int[][] deck, int index) {
+        if (index < 0 || index >= deck.length) {
+            System.out.println("Invalid index. Index must be between 0 and " + (deck.length - 1));
+            return new int[0][2][0];
+        }
+
+        int[][] pickedCard = new int[1][2];
+        pickedCard[0] = deck[index];
+
+        int[][] remainingCards = new int[deck.length - 1][2];
+        int remainingIndex = 0;
+
+        for (int i = 0; i < deck.length; i++) {
+            if (i != index) {
+                remainingCards[remainingIndex] = deck[i];
+                remainingIndex++;
+            }
+        }
+
+        int[][][] result = new int[2][][];
+        result[0] = pickedCard;
+        result[1] = remainingCards;
+
+        return result;
     }
 
 }
