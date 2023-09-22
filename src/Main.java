@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        CardUtils.createDeckOfCards();
+        CardUtils.show(12,4);
     }
 }
