@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class CardUtils {
     public static int[][] createDeckOfCards(int startingValue, int startingSuit) {
         int[][] deck = new int[52][2];
@@ -52,30 +54,48 @@ public class CardUtils {
         System.out.println(colorCode + cardName + resetCode);
     }
 
-    public static int[][][] pickCardByIndex(int[][] deck, int index) {
+    public static int[][][] pickCardByIndex(int[][] deck, int index, int[][] pickedCards) {
         if (index < 0 || index >= deck.length) {
-            System.out.println("Invalid index. Index must be between 0 and " + (deck.length - 1));
-            return new int[0][2][0];
+            pickCardByIndex(deck, index, pickedCards);
         }
 
         int[][] pickedCard = new int[1][2];
         pickedCard[0] = deck[index];
 
-        int[][] remainingCards = new int[deck.length - 1][2];
-        int remainingIndex = 0;
+        // Add the picked card to the pickedCards array
+        int[][] updatedPickedCards = new int[pickedCards.length + 1][2];
+        for (int i = 0; i < pickedCards.length; i++) {
+            updatedPickedCards[i] = pickedCards[i];
+        }
+        updatedPickedCards[pickedCards.length] = pickedCard[0];
+
+        // Remove the picked card from the deck
+        int[][] updatedDeck = new int[deck.length - 1][2];
+        int deckIndex = 0;
 
         for (int i = 0; i < deck.length; i++) {
             if (i != index) {
-                remainingCards[remainingIndex] = deck[i];
-                remainingIndex++;
+                updatedDeck[deckIndex] = deck[i];
+                deckIndex++;
             }
         }
 
         int[][][] result = new int[2][][];
-        result[0] = pickedCard;
-        result[1] = remainingCards;
+        result[0] = updatedPickedCards;
+        result[1] = updatedDeck;
 
         return result;
+    }
+
+
+    public static void pickRandCard(int[][] pickedCards, int[][] remainingCards) {
+        Random random = new Random();
+        int randomNumber = random.nextInt(51);
+        pickCardByIndex(remainingCards, randomNumber, pickedCards);
+    }
+
+    public static void mixCards() {
+        
     }
 
 }
