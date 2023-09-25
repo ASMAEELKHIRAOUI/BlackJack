@@ -31,14 +31,15 @@ public class CardUtils {
         return value + "-" + suit;
     }
 
-    public static void show(int startingValue, int startingSuit) {
-        int[][] deck = createDeckOfCards(startingValue, startingSuit);
+    public static String show(int[][] pickedCards) {
+        StringBuilder cardInfo = new StringBuilder();
 
-        for (int[] card : deck) {
+        for (int[] card : pickedCards) {
             int value = card[0];
             int suit = card[1];
             printColoredCard(getCardName(value, suit), suit);
         }
+        return cardInfo.toString();
     }
 
     public static void printColoredCard(String cardName, int suit) {
@@ -64,7 +65,7 @@ public class CardUtils {
 
         // Add the picked card to the pickedCards array
         int[][] updatedPickedCards = new int[pickedCards.length + 1][2];
-        for (int i = 0; i < pickedCards.length; i++) {
+        for(int i = 0; i < pickedCards.length; i++) {
             updatedPickedCards[i] = pickedCards[i];
         }
         updatedPickedCards[pickedCards.length] = pickedCard[0];
@@ -88,14 +89,23 @@ public class CardUtils {
     }
 
 
-    public static void pickRandCard(int[][] pickedCards, int[][] remainingCards) {
+    public static int[][][] pickRandCard(int[][] pickedCards, int[][] remainingCards) {
         Random random = new Random();
-        int randomNumber = random.nextInt(51);
-        pickCardByIndex(remainingCards, randomNumber, pickedCards);
+        int randomNumber = random.nextInt(remainingCards.length);
+        return pickCardByIndex(remainingCards, randomNumber, pickedCards);
     }
 
-    public static void mixCards() {
-        
+    public static int[][] mixCards() {
+        int[][] pickedCards = new int[0][2];
+        int[][] remainingCards = createDeckOfCards(1, 1);
+
+        while (remainingCards.length > 0) {
+            int[][][] result = pickRandCard(pickedCards, remainingCards);
+            pickedCards = result[0];
+            remainingCards = result[1];
+        }
+
+        return pickedCards;
     }
 
 }
