@@ -114,11 +114,11 @@ public class CardUtils {
         Random random = new Random();
         int cardIndex = random.nextInt(11) + 20;
 
-        int[][] drawedCards = new int[cardIndex + 1][2];
+        int[][] drawnCards = new int[cardIndex + 1][2];
 
-        // Copy the cards from deck to drawedCards
+        // Copy the cards from deck to drawnCards
         for (int i = 0; i <= cardIndex; i++) {
-            drawedCards[i] = deck[i];
+            drawnCards[i] = deck[i];
         }
 
         // Calculate the size of the updatedDeck
@@ -131,10 +131,28 @@ public class CardUtils {
         }
 
         int[][][] result = new int[2][][];
-        result[0] = drawedCards;
+        result[0] = drawnCards;
         result[1] = updatedDeck;
 
         return result;
     }
 
+    public static int[][] discardCards() {
+        int[][][] cards = drawNCards();
+        int [][] drawnCards = cards[0];
+        int [][] remainingCards = cards[1];
+        int[][] deck = new int[52][2];
+
+        // Copy drawnCards into combinedCards
+        for (int i = 0; i < drawnCards.length; i++) {
+            deck[i] = drawnCards[i];
+        }
+
+        // Copy remainingCards into combinedCards starting after the drawnCards
+        for (int i = 0; i < remainingCards.length; i++) {
+            deck[i + drawnCards.length] = remainingCards[i];
+        }
+
+        return deck;
+    }
 }
