@@ -108,4 +108,33 @@ public class CardUtils {
         return pickedCards;
     }
 
+    public static int[][][] drawNCards() {
+        int[][] deck=CardUtils.mixCards();
+
+        Random random = new Random();
+        int cardIndex = random.nextInt(11) + 20;
+
+        int[][] drawedCards = new int[cardIndex + 1][2];
+
+        // Copy the cards from deck to drawedCards
+        for (int i = 0; i <= cardIndex; i++) {
+            drawedCards[i] = deck[i];
+        }
+
+        // Calculate the size of the updatedDeck
+        int updatedDeckSize = deck.length - (cardIndex + 1);
+        int[][] updatedDeck = new int[updatedDeckSize][2];
+
+        // Copy the remaining cards from deck to updatedDeck
+        for (int i = cardIndex + 1, j = 0; i < deck.length; i++, j++) {
+            updatedDeck[j] = deck[i];
+        }
+
+        int[][][] result = new int[2][][];
+        result[0] = drawedCards;
+        result[1] = updatedDeck;
+
+        return result;
+    }
+
 }
