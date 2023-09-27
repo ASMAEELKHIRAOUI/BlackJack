@@ -15,13 +15,13 @@ public class CardUtils {
         }
 
         // Create cards from the beginning to the starting card
-        for (int suit = 1; suit < startingSuit+1; suit++) {
+        /*for (int suit = 1; suit < startingSuit+1; suit++) {
             for (int value = 1; value < (suit==startingSuit?startingValue:14); value++) {
                 deck[index][0] = value;
                 deck[index][1] = suit;
                 index++;
             }
-        }
+        }*/
 
         return deck;
     }
