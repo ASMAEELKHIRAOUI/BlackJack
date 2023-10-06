@@ -26,7 +26,6 @@ public class CardUtils {
         return deck;
     }
 
-
     public static String getCardName(int value, int suit) {
         return value + "-" + suit;
     }

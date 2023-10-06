@@ -1,5 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        CardUtils.show(CardUtils.discardCards());
+        //CardUtils.show(CardUtils.discardCards());
+        BlackJack.start();
     }
 }
